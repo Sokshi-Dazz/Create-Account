@@ -3,7 +3,6 @@ from selenium.webdriver.common.alert import Alert
 import re
 import random
 import string
-import pytest                                  
 from pywinauto import Desktop, keyboard
 import pyperclip
 from selenium import webdriver
@@ -17,16 +16,13 @@ def log_step(desc, status="PASS"):
     REPORT.append((desc, status))
     print(f"{desc}: {status}")
  
-# -------------------------------------------------------------
 #  RANDOM MAILBOX GENERATOR
-# -------------------------------------------------------------
+
 def generate_random_mailbox():
     prefix = ''.join(random.choices(string.ascii_lowercase, k=4))
     return prefix + "test"
- 
-# -------------------------------------------------------------
+
 #  HP SMART LAUNCH & ACCOUNT CREATION
-# -------------------------------------------------------------
 def launch_hp_smart():
     try:
         keyboard.send_keys("{VK_LWIN}HP Smart{ENTER}")
@@ -78,9 +74,9 @@ def fill_account_form(desktop, email_id):
     except Exception as e:
         log_step(f"Error filling account form: {e}", "FAIL")
  
-# -------------------------------------------------------------
+
 #  FETCH OTP (SELENIUM)
-# -------------------------------------------------------------
+
 def fetch_otp_from_mailsac(mailbox_name, max_wait=30, poll_interval=3):
     otp = None
     driver = None
@@ -132,9 +128,9 @@ def fetch_otp_from_mailsac(mailbox_name, max_wait=30, poll_interval=3):
             driver.quit()
         return None, None
  
-# -------------------------------------------------------------
+
 #  PASTE OTP USING PYWINAUTO
-# -------------------------------------------------------------
+
 def complete_web_verification_in_app(otp):
     try:
         desktop = Desktop(backend="uia")
@@ -192,9 +188,9 @@ def main():
     if otp:
         complete_web_verification_in_app(otp)
  
-    # ---------------------------------------------------------
+  
     # FIXED ALERT HANDLING
-    # ---------------------------------------------------------
+
     if driver:
         try:
             WebDriverWait(driver, 10).until(EC.alert_is_present())
