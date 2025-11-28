@@ -1,4 +1,5 @@
 📌 HP Smart Account Automation
+
 This repository contains an end-to-end automation for HP Smart Desktop App account sign-up, using a hybrid of desktop and web automation:
 
 PyWinAuto → Automates the HP Smart Windows desktop application
